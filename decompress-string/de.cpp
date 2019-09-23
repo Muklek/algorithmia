@@ -1,7 +1,6 @@
 #include<iostream>
 #include<string>
 #include<vector>
-#include<unordered_map>
 #include<iomanip>
 
 class generateString{
@@ -33,12 +32,9 @@ void generateString::combination(std::string& compressedStr,
    }
    std::string const multiplierStr{localResult};
    while(multiplier.back() -1 > 0){
-      //std::cout<<localResult + "   ";
-      //std::cout<<multiplier.back();
       localResult += multiplierStr;
       --multiplier.back();
    }
-   std::cout<<std::endl;
    localStr += localResult;
    ++index;
    multiplier.pop_back();
@@ -58,7 +54,6 @@ std::string generateString::decompress(std::string& compressedStr){
       else{
          if(compressedStr[i] != ']') result+=compressedStr[i];
       }
-      //std::cout<<i<<std::endl;
    }
    return result;
 }
@@ -69,12 +64,10 @@ int main(){
    std::string compressed3{"1[1[1[1[1[1[a]]]]]]"};
 
    generateString gs;
-   //auto const finalString1{gs.decompress(compressed1)};
    auto const finalString1{gs.decompress(compressed1)};
    auto const finalString2{gs.decompress(compressed2)};
    auto const finalString3{gs.decompress(compressed3)};
 
-   //std::cout<<finalString1<<std::endl;
    std::cout<<finalString1<<std::endl;
    std::cout<<finalString2<<std::endl;
    std::cout<<finalString3<<std::endl;
