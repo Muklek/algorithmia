@@ -11,25 +11,22 @@ bool checkAddress(st& address){
    for(int i{0} ;i<address.size(); i++){
       if(address[i] == '.'){
          st sub{address.substr(back, i-back)};
-         if(sub.compare("255") > 0 && sub.compare("-1") < 0) return false;
+         if(sub.compare("255") > 0) return false;
          back = i+1;
       }
       if(i == address.size()-1 && (i-back) >= 3) return false;
-      //std::cout<<std::endl;
-      //std::cout<<i<<std::endl;
-      //std::cout<<back<<std::endl;
    }
    return true;
 
 }
 
 void generateString(st& raw, vst& results, int dots, int index){
-   //std::cout<<raw<<std::endl;
+   std::cout<<raw<<std::endl;
    if(dots==4 && checkAddress(raw)){
       results.push_back(raw);
       return;
    }
-   
+
    if(dots < 4 && index<raw.size()-1){
       raw.insert(raw.begin() + index + 1, '.');
       generateString(raw, results, ++dots, index+2);
@@ -61,7 +58,6 @@ vst restoreIp(st& raw){
 
 int main(){
     std::string raw{"25525511135"};
-    //std::cout<<checkAddress(raw)<<std::endl;
     vst result{restoreIp(raw)};
 
     for(auto x : result){
