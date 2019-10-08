@@ -10,13 +10,6 @@ using namespace std;
  * The function accepts STRING s as parameter.
  */
 
-/*
- *
- * Problem solved by Muklek Bokth Choudhury
- * Email: muklek.bc@gmail.com
- * For the 2020 Summer Engineering Internship (London)
- *
- */
 
 bool containsABC(string combination){
    bool foundA{false}, foundB{false}, foundC{false};
