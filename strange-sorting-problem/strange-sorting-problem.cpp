@@ -11,14 +11,6 @@ using namespace std;
  *  2. STRING_ARRAY nums
  */
 
-/*
- *
- * Problem solved by: Muklek Bokth Choudhury
- * Email: muklek.bc@gmail.com
- * For the 2020 summer engineering internship (London)
- *
- */
-
 
 
 inline int findIndex(vector<int>& mapping, int target){
