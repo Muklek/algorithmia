@@ -8,6 +8,7 @@ using namespace std;
  *
  * The function is expected to return a LONG_INTEGER.
  * The function accepts STRING s as parameter.
+ *
  */
 
 
