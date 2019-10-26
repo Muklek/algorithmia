@@ -4,7 +4,7 @@
 typedef std::string st;
 
 
-void cleanDots(st& dir, int& index){
+void cleanUp(st& dir, int& index){
    while(dir[index] != '/'){
       dir.erase(dir.begin()+index);
       --index;
@@ -13,7 +13,7 @@ void cleanDots(st& dir, int& index){
 }
 
 void moveDir(st& dir, int& index){
-   cleanDots(dir, index);
+   cleanUp(dir, index);
 
    ++index;
    while(dir[index] == '.'){
@@ -24,7 +24,7 @@ void moveDir(st& dir, int& index){
 
 
 void stayDir(st& dir, int& index){
-   cleanDots(dir, index);
+   cleanUp(dir, index);
 }
 
 void getRelativeDir(st& dir){
