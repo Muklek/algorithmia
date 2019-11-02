@@ -21,7 +21,7 @@ void SpiralBuilder::generateMatrix(){
    int value{0};
 
    for(size_t i{0}; i<length; i++) matrix.push_back(std::vector<int>{});
-   for(size_t i{0}; i<length; i++) matrix[i].reserve(3);
+   for(size_t i{0}; i<length; i++) matrix[i].resize(length);
 
    while(c1 <= c2 && r1<=r2){
       for(size_t c{c1}; c<=c2; c++) matrix[r1][c] = ++value;
@@ -48,7 +48,7 @@ void SpiralBuilder::printMatrix(){
 }
 
 int main(){
-   SpiralBuilder sp{3};
+   SpiralBuilder sp{4};
    sp.generateMatrix();
    sp.printMatrix();
 }
