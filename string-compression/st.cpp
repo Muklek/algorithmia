@@ -2,52 +2,70 @@
 #include<string>
 #include<iostream>
 
-// could have bugs. Not tested.
+typedef std::string st;
+typedef std::vector<char> vc;
 
 
-inline void deleteReplicas(std::vector<char>& raw, int front, int back){
-    while(front != back){
-        raw.erase(raw.begin() + front);
-        front--;
-    }
+
+void deleteReplicas(vc& raw, int& front, int& back){
+   while(front != back){
+      raw.erase(raw.begin()+front);
+      --front;
+   }
+   ++front;
+}
+
+void compress(vc& raw, int& front, int& back, int count){
+   deleteReplicas(raw, front, back);
+   if(count < 9){
+      raw.insert(raw.begin()+back, static_cast<char>(count + '0'));
+      ++front;
+   }
+   else {
+      st countStr{std::to_string(count)};
+      for(int i{0}; i<countStr.size(); i++){
+         raw.insert(raw.begin()+back, countStr[i]);
+         ++back; ++front;
+      }
+   }
 }
 
 
-void append(std::vector<char>& raw, int front, int back, int count){
-    std::string stringCount{count};
-    deleteReplicas(raw, front, back);
-    if(count > 1 && count<10){
-        raw.insert(raw.begin()+(back+1), stringCount[0]);
-    }
-    else if (count>9){
-       for(int i{0}; i<stringCount.size();i++){
-           raw.insert((raw.begin()+(back+1)), stringCount[i]);
-       } 
-    }
+void compress(vc& raw){
+   int back{0}, charCount{0};
+
+   for(int i{0}; i<raw.size(); i++){
+      std::cout<<i<<" "<<back<<std::endl;  
+      if(i+1 == raw.size() && i-back >= 1){
+         compress(raw, i, back, (i-back)+1);
+      }
+      else if(raw[i+1] != raw[back] && i+1 - back == 1){
+         ++back;
+      }
+      else if(raw[i+1] != raw[back] && i-back > 1){
+         compress(raw, i, back, (i-back)+1);
+         back = i;
+         --i;
+      }
+   }
+   std::cout<<std::endl;
 }
 
 
-void compress(std::vector<char>& raw){
-    int front{0},back{0}, charCount{0};
-    while(front<raw.size()){
-        if(raw[front] == raw[back]){
-            front++;
-        }
-        else{
-            charCount = (front - back) + 1;
-            append(raw, front, back, charCount);
-            back=front;
-            front++;
-            }
-        }
+void print(vc& raw){
+   for(auto const x : raw) std::cout<<x<<" ";
+   std::cout<<std::endl;
 }
-
 
 
 int main(){
-    std::vector<char> uncompressed{'a','a','b','b','c','c','c'};
-    compress(uncompressed);
-    for(char c : uncompressed){
-        std::cout<<c<<std::endl;
-    }
+   vc uncompressed1{'a','a','b','b','c','c','c'};
+   vc uncompressed2{'a','b','b','b','b','b','c','c','c'};
+   vc uncompressed3{'f','a','a','a','a','a','a','a','a','a','a','b','c','d','d'};
+   compress(uncompressed1);
+   compress(uncompressed2);
+   compress(uncompressed3);
+   print(uncompressed1);    
+   print(uncompressed2);    
+   print(uncompressed3);    
 }
