@@ -7,7 +7,6 @@ typedef std::vector<st> vst;
 typedef std::unordered_set<st> ust;
 
 // complexity:
-// space: O(word.length + dict.length)
 // lookup time O(1)
 // time complexity: O(n)
 
