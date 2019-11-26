@@ -6,7 +6,7 @@ typedef std::string st;
 char decodeAtIndex(st& word, int index){
    st combo{""}, localCombo{""};
 
-   for(int i{0}, j{0}; word.size(); i++){
+   for(int i{0}, j{0}; i<word.size(); i++){
       if(std::isdigit(word[i])){
          j = i;
          while(j < word.size() && std::isdigit(word[j+1])) ++j;
@@ -23,6 +23,9 @@ char decodeAtIndex(st& word, int index){
          }
       }
       else combo += word[i];
+      if(combo.size() == index){
+         return index == 0 ? combo[index] : combo[index-1];
+      }
    }
 }
 
@@ -36,7 +39,11 @@ int main(){
    st s3{"a23121121"};
    int k3{0};
    
+   st s4{"abcde"};
+   int k4{3};
+   
    std::cout<<decodeAtIndex(s1, k1)<<std::endl;
    std::cout<<decodeAtIndex(s2, k2)<<std::endl;
    std::cout<<decodeAtIndex(s3, k3)<<std::endl;
+   std::cout<<decodeAtIndex(s4, k4)<<std::endl;
 }
