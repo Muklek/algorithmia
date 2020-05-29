@@ -1,52 +1,49 @@
 #include<iostream>
 
-struct Node{
-   int value;
-   Node* left;
-   Node* right;
+// recursive solution
 
-   Node(int data): value(data), left(nullptr), right(nullptr){};
+struct Node{
+   int value{0};
+   Node* left{nullptr};
+   Node* right{nullptr};
 
    Node(int data, Node* lt, Node* rt)
       :value(data),left(lt), right(rt){};
 };
 
 
-void traverse(int& commulative, Node *& t){
-   commulative += t->value;
+void getTilt(int& acc, Node* root){
+  int localValue{0};
 
-   if(t->right != nullptr)
-      traverse(commulative, t->right);
-   if(t->left != nullptr)
-      traverse(commulative, t->left);
-}
+  if(root != nullptr && root->left != nullptr)
+    localValue = root->left->value;
+  if(root != nullptr && root->right != nullptr)
+    localValue = std::abs(localValue - root->right->value);
 
-int getTilt(Node *& root){
-   int rightWeight{0}, leftWeight{0};
-   
-   traverse(rightWeight, root->right);
-   traverse(leftWeight, root->left);
+  acc += localValue;
 
-   return root->value + std::abs(rightWeight - leftWeight);
+  if(root == nullptr) return;
+
+  getTilt(acc, root->left);
+  getTilt(acc, root->right);
 }
 
 
 int main(){
-   Node* n1 = new Node(1);
-   Node* n2 = new Node(2);
-   Node* n3 = new Node(3);
-   Node* n4 = new Node(4);
-   Node* n5 = new Node(5);
-   Node* n6 = new Node(6);
-   Node* n7 = new Node(7);
+  Node n1{1, nullptr, nullptr};
+  Node n2{2, nullptr, nullptr};
+  Node n3{3, nullptr, nullptr};
+  Node n4{30, nullptr, nullptr};
+  Node n5{29, nullptr, nullptr};
 
-   Node* root = new Node(8, n4, n7);
-   root->left->left = n3;
-   root->left->right = n7;
-   root->right->left = n1;
-   root->right->right = n2;
+  n1.left = &n2;
+  n1.right = &n3;
+  n3.right = &n4;
+  n3.left = &n5;
 
-   std::cout<<getTilt(root)<<std::endl;
+  int tilt{0};
+  getTilt(tilt, &n1);
+
+  std::cout<<tilt<<'\n';
 }
-
 
