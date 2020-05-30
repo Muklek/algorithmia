@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 
-// non-recursive
+// recursive
 
 struct Node {
   int16_t value{0};
