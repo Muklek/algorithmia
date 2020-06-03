@@ -31,6 +31,7 @@ inline bool isSymmetric(Node* root){
       nodes.emplace_back(nodes[i+1]->left);
     }
   }
+  return true;
 }
 
 
